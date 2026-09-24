@@ -1,0 +1,17 @@
+{
+  "name": "Eliade Portaria - Validador de Ingressos",
+  "short_name": "Portaria Eliade",
+  "description": "Aplicativo de validação de ingressos e leitura de QR Code para o evento de 15 anos do Grupo Eliade.",
+  "start_url": "/admin/scanner",
+  "display": "standalone",
+  "background_color": "#07080c",
+  "theme_color": "#07080c",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ]
+}
