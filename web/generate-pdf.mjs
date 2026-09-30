@@ -192,7 +192,7 @@ async function generatePresentationPDF() {
         <div class="badge">Visualização Completa</div>
       </div>
       <p class="description">
-        Layout de gala com tema em tons escuros e dourado, contagem regressiva em tempo real para o evento, história dos 15 anos, brindes inclusos e formulário de compra via PIX.
+        Layout de gala com tema em tons de azul marinho e bege, contagem regressiva em tempo real para o evento e formulário de compra via PIX para confraternização do grupo.
       </p>
       <div class="img-card">
         <img src="${desktopBase64}" class="img-full" alt="Landing Page Desktop">

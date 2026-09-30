@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Music, ShieldCheck, Ticket } from 'lucide-react';
+import { Music, ShieldCheck, Ticket, Calendar, MapPin } from 'lucide-react';
 
 export default function Header() {
   return (
@@ -12,8 +12,8 @@ export default function Header() {
       left: 0,
       width: '100%',
       zIndex: 100,
-      background: 'rgba(7, 8, 12, 0.85)',
-      backdropFilter: 'blur(16px)',
+      background: 'rgba(6, 11, 26, 0.88)',
+      backdropFilter: 'blur(20px)',
       borderBottom: '1px solid var(--border-subtle)'
     }}>
       <div className="container" style={{
@@ -28,80 +28,89 @@ export default function Header() {
             width: '42px',
             height: '42px',
             borderRadius: '12px',
-            background: 'var(--gold-gradient)',
+            background: 'var(--beige-gradient)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: '#000',
-            boxShadow: 'var(--shadow-gold)'
+            color: '#060b1a',
+            boxShadow: 'var(--shadow-beige)'
           }}>
             <Music size={22} strokeWidth={2.5} />
           </div>
           <div>
             <div className="font-display" style={{
-              fontSize: '1.25rem',
+              fontSize: '1.2rem',
               fontWeight: '900',
-              letterSpacing: '1.5px',
+              letterSpacing: '1px',
               color: 'var(--text-primary)'
             }}>
               GRUPO ELIADE
             </div>
             <div style={{
               fontSize: '0.72rem',
-              letterSpacing: '2px',
-              color: 'var(--gold-light)',
+              letterSpacing: '1.8px',
+              color: 'var(--beige-primary)',
               textTransform: 'uppercase',
               fontWeight: '600'
             }}>
-              15 Anos de História
+              15 Anos de Gratidão
             </div>
           </div>
         </Link>
 
-        {/* Links de Navegação */}
-        <nav style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
-          <a href="#sobre" style={{
-            color: 'var(--text-secondary)',
-            textDecoration: 'none',
-            fontSize: '0.9rem',
-            fontWeight: '500',
-            transition: 'color 0.2s'
-          }}>
-            O Evento
-          </a>
-          <a href="#ingressos" style={{
-            color: 'var(--text-secondary)',
-            textDecoration: 'none',
-            fontSize: '0.9rem',
-            fontWeight: '500',
-            transition: 'color 0.2s'
-          }}>
-            Ingressos
-          </a>
+        {/* Resumo da data e local (visível em desktop/tablet) */}
+        <div style={{
+          display: 'none',
+          alignItems: 'center',
+          gap: '16px',
+          color: 'var(--text-secondary)',
+          fontSize: '0.85rem'
+        }} className="header-info">
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <Calendar size={15} color="var(--beige-primary)" />
+            <span>07 de Novembro &bull; 18h</span>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <MapPin size={15} color="var(--beige-primary)" />
+            <span>Auditório Walkíria Lima</span>
+          </div>
+        </div>
+
+        {/* Ações */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
           <Link href="/admin/scanner" style={{
             display: 'inline-flex',
             alignItems: 'center',
             gap: '6px',
             color: 'var(--text-muted)',
             textDecoration: 'none',
-            fontSize: '0.85rem',
-            padding: '6px 12px',
-            borderRadius: '8px',
+            fontSize: '0.82rem',
+            padding: '7px 12px',
+            borderRadius: 'var(--radius-sm)',
             border: '1px solid var(--border-subtle)',
             transition: 'all 0.2s'
           }}>
             <ShieldCheck size={16} />
-            Portaria
+            <span>Portaria</span>
           </Link>
+
           <a href="#ingressos" className="btn-primary" style={{
-            padding: '10px 20px',
-            fontSize: '0.9rem'
+            padding: '10px 22px',
+            fontSize: '0.92rem'
           }}>
             <Ticket size={18} />
-            Comprar R$ 10
+            <span>Ingressos R$ 10</span>
           </a>
-        </nav>
+        </div>
       </div>
+
+      <style jsx>{`
+        @media (min-width: 860px) {
+          .header-info {
+            display: flex !important;
+          }
+        }
+      `}</style>
     </header>
   );
 }

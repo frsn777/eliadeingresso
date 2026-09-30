@@ -4,26 +4,25 @@ import Countdown from '@/components/Countdown';
 import EventDetails from '@/components/EventDetails';
 import TicketSelection from '@/components/TicketSelection';
 import Footer from '@/components/Footer';
-import { Sparkles, Ticket, Music, Award, HelpCircle, ChevronRight } from 'lucide-react';
-import Link from 'next/link';
+import { Sparkles, Ticket, Calendar, Clock, MapPin, HelpCircle, ShieldCheck, Music2, Heart } from 'lucide-react';
 
 export default function HomePage() {
   const faqs = [
     {
-      q: 'Como vou receber os meus ingressos após o pagamento?',
-      a: 'Imediatamente após a confirmação do PIX, o site exibirá os ingressos individuais na tela prontos para visualização e impressão, com QR Codes únicos para cada participante.'
+      q: 'Como vou receber o meu ingresso após o pagamento via PIX?',
+      a: 'Assim que o PIX é confirmado, o site exibe os ingressos imediatamente na sua tela com opção de baixar o arquivo PDF ou salvar a imagem com o QR Code. Atenção: os ingressos não são enviados por e-mail, portanto salve o arquivo no seu celular ao finalizar a compra.'
     },
     {
-      q: 'Posso comprar vários ingressos de uma só vez?',
-      a: 'Sim! Você pode selecionar a quantidade desejada e informar o nome de cada convidado. O sistema gerará um QR Code exclusivo com o nome de cada pessoa.'
+      q: 'Posso comprar múltiplos ingressos de uma só vez?',
+      a: 'Sim! Você pode selecionar a quantidade desejada e digitar o nome de cada pessoa. O sistema gera um QR Code exclusivo com o nome de cada participante.'
     },
     {
-      q: 'Como funciona a entrada no dia do evento?',
-      a: 'Nossa equipe de portaria terá um leitor digital. Basta apresentar o QR Code na tela do seu celular ou impresso para ter a entrada liberada em segundos.'
+      q: 'E se eu esquecer ou perder o arquivo do ingresso no dia do evento?',
+      a: 'Fique tranquilo! A nossa equipe de portaria terá acesso à Lista Oficial de Presença no sistema e poderá consultar o seu nome ou do comprador para liberar a sua entrada normalmente.'
     },
     {
-      q: 'Para onde vai o valor arrecadado dos ingressos?',
-      a: 'O valor simbólico de R$ 10,00 por ingresso é 100% destinado para cobrir os custos dos brindes comemorativos e financiar o passeio comemorativo de aniversário dos membros do grupo.'
+      q: 'Para onde é destinado o valor do ingresso de R$ 10,00?',
+      a: 'O valor simbólico de R$ 10,00 por ingresso é 100% destinado para a confraternização e comemoração de aniversário de 15 anos dos membros do Grupo Eliade.'
     }
   ];
 
@@ -31,203 +30,203 @@ export default function HomePage() {
     <main style={{ minHeight: '100vh', position: 'relative' }}>
       <Header />
 
-      {/* HERO SECTION */}
+      {/* HERO SECTION COM FOTOS EM ESTILO POLAROID DE ALTO DESTAQUE */}
       <section style={{
         position: 'relative',
         minHeight: '100vh',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '140px 0 80px',
+        padding: '120px 0 70px',
         overflow: 'hidden'
       }}>
-        {/* Imagem de Fundo com Overlay Gradiente */}
+        {/* Luz Ambiente de Fundo */}
         <div style={{
           position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          backgroundImage: 'url(/images/hero-banner.jpg)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          filter: 'brightness(0.32)',
-          zIndex: -2
+          top: '10%',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: '90vw',
+          maxWidth: '1000px',
+          height: '600px',
+          background: 'radial-gradient(ellipse at center, rgba(30, 55, 122, 0.3) 0%, rgba(6, 11, 26, 0) 70%)',
+          zIndex: 0,
+          pointerEvents: 'none'
         }} />
 
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          background: 'radial-gradient(circle at center, rgba(7, 8, 12, 0.4) 0%, rgba(7, 8, 12, 0.95) 100%)',
-          zIndex: -1
-        }} />
-
-        <div className="container" style={{ textAlign: 'center', maxWidth: '880px', position: 'relative', zIndex: 1 }}>
+        <div className="container" style={{ position: 'relative', zIndex: 1, maxWidth: '980px', textAlign: 'center' }}>
           
-          <div className="gold-badge" style={{ marginBottom: '20px' }}>
-            <Sparkles size={16} /> Concerto de Gala &bull; 15 Anos de História
+          {/* Badge Comemorativo */}
+          <div className="badge-beige pulse-beige" style={{ marginBottom: '18px' }}>
+            <Sparkles size={16} color="var(--beige-light)" /> 
+            <span>15 Anos do Grupo Eliade &bull; 2011 - 2026</span>
           </div>
 
+          {/* Título Principal */}
           <h1 className="font-display" style={{
-            fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
+            fontSize: 'clamp(2.3rem, 5vw, 4.2rem)',
             fontWeight: '900',
-            lineHeight: '1.1',
-            letterSpacing: '1px',
-            marginBottom: '20px'
+            lineHeight: '1.15',
+            letterSpacing: '0.5px',
+            marginBottom: '14px',
+            color: '#ffffff'
           }}>
-            Uma Noite Especial de <br />
-            <span className="text-gold-gradient">Música & Gratidão</span>
+            Culto Musical de <br />
+            <span className="text-beige-gradient">Gratidão</span>
           </h1>
 
+          {/* Subtítulo */}
           <p style={{
-            fontSize: 'clamp(1rem, 2vw, 1.25rem)',
-            color: 'var(--text-secondary)',
-            lineHeight: '1.7',
-            maxWidth: '680px',
-            margin: '0 auto 30px'
+            fontSize: 'clamp(1.05rem, 2vw, 1.3rem)',
+            color: 'var(--beige-warm)',
+            fontWeight: '600',
+            letterSpacing: '0.5px',
+            marginBottom: '26px'
           }}>
-            Venha celebrar conosco os 15 anos do <strong>Grupo Musical Eliade</strong>. Uma apresentação inesquecível com repertório emocionante, homenagens e brindes exclusivos.
+            15 Anos de História, Amizade e Louvor &bull; Grupo Eliade
           </p>
 
-          <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <a href="#ingressos" className="btn-primary" style={{ padding: '16px 36px', fontSize: '1.1rem' }}>
-              <Ticket size={20} />
+          {/* Badges de Data, Hora e Local */}
+          <div style={{
+            display: 'inline-flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            gap: '12px',
+            marginBottom: '30px',
+            maxWidth: '850px'
+          }}>
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '10px 20px',
+              background: 'rgba(14, 26, 58, 0.85)',
+              border: '1px solid var(--border-beige)',
+              borderRadius: 'var(--radius-full)',
+              fontSize: '0.94rem',
+              color: '#ffffff',
+              backdropFilter: 'blur(12px)'
+            }}>
+              <Calendar size={18} color="var(--beige-primary)" />
+              <strong>07 de Novembro</strong>
+            </div>
+
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '10px 20px',
+              background: 'rgba(14, 26, 58, 0.85)',
+              border: '1px solid var(--border-beige)',
+              borderRadius: 'var(--radius-full)',
+              fontSize: '0.94rem',
+              color: '#ffffff',
+              backdropFilter: 'blur(12px)'
+            }}>
+              <Clock size={18} color="var(--beige-primary)" />
+              <strong>18:00h</strong>
+            </div>
+
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '10px 20px',
+              background: 'rgba(14, 26, 58, 0.85)',
+              border: '1px solid var(--border-beige)',
+              borderRadius: 'var(--radius-full)',
+              fontSize: '0.94rem',
+              color: '#ffffff',
+              backdropFilter: 'blur(12px)'
+            }}>
+              <MapPin size={18} color="var(--beige-primary)" />
+              <span>Auditório Walkíria Lima</span>
+            </div>
+          </div>
+
+          {/* Botão de Compra Direta */}
+          <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '24px' }}>
+            <a href="#ingressos" className="btn-primary" style={{ padding: '18px 42px', fontSize: '1.15rem' }}>
+              <Ticket size={22} />
               <span>Garantir Ingresso &bull; R$ 10</span>
             </a>
-            <a href="#sobre" className="btn-secondary" style={{ padding: '16px 32px' }}>
-              <span>Conhecer o Evento</span>
-              <ChevronRight size={18} />
-            </a>
+          </div>
+
+          {/* FOTOS EM ESTILO POLAROID RETRÔ MODERNO */}
+          <div className="polaroid-wrapper">
+            
+            {/* Polaroid 1 */}
+            <div className="polaroid-card polaroid-left">
+              <div className="polaroid-tape" />
+              <div className="polaroid-img-box">
+                <img
+                  src="/images/eliade-foto1.jpeg"
+                  alt="Grupo Eliade 15 Anos"
+                />
+              </div>
+              <div className="polaroid-caption">
+                Grupo Eliade
+              </div>
+              <div className="polaroid-subcaption">
+                15 Anos de Gratidão
+              </div>
+            </div>
+
+            {/* Polaroid 2 */}
+            <div className="polaroid-card polaroid-right">
+              <div className="polaroid-tape" />
+              <div className="polaroid-img-box">
+                <img
+                  src="/images/eliade-foto2.jpeg"
+                  alt="Louvor Grupo Eliade"
+                />
+              </div>
+              <div className="polaroid-caption">
+                Culto Especial
+              </div>
+              <div className="polaroid-subcaption">
+                07 de Novembro &bull; 18h
+              </div>
+            </div>
+
           </div>
 
           {/* Contador Regressivo */}
-          <Countdown targetDate="2026-11-15T19:30:00" />
+          <div style={{ marginTop: '20px' }}>
+            <div style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '1.5px', fontWeight: '700' }}>
+              Contagem Regressiva para a Celebração
+            </div>
+            <Countdown targetDate="2026-11-07T18:00:00" />
+          </div>
+
         </div>
       </section>
 
-      {/* SEÇÃO SOBRE & DETALHES DO EVENTO */}
+      {/* DETALHES PRÁTICOS DO EVENTO */}
       <EventDetails />
 
-      {/* SEÇÃO DE DESTAQUES VISUAIS / PALCO */}
-      <section style={{
-        position: 'relative',
-        padding: '100px 0',
-        overflow: 'hidden'
-      }}>
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          backgroundImage: 'url(/images/stage-bg.jpg)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          filter: 'brightness(0.25)',
-          zIndex: -1
-        }} />
-
-        <div className="container">
-          <div style={{
-            background: 'rgba(18, 21, 31, 0.8)',
-            backdropFilter: 'blur(16px)',
-            border: '1px solid var(--border-gold)',
-            borderRadius: 'var(--radius-xl)',
-            padding: 'clamp(32px, 6vw, 60px)',
-            boxShadow: 'var(--shadow-gold)'
-          }}>
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-              gap: '40px',
-              alignItems: 'center'
-            }}>
-              <div>
-                <div className="gold-badge" style={{ marginBottom: '14px' }}>
-                  <Award size={14} /> Tradição e Excelência
-                </div>
-                <h2 className="font-display" style={{ fontSize: 'clamp(1.8rem, 3vw, 2.4rem)', fontWeight: '800', marginBottom: '16px' }}>
-                  Momentos que Marcaram Nossa Trajetória
-                </h2>
-                <p style={{ color: 'var(--text-secondary)', lineHeight: '1.7', fontSize: '1.05rem', marginBottom: '24px' }}>
-                  Desde nossa primeira apresentação até os palcos atuais, o Grupo Eliade sempre levou emoção através da música. Nesta comemoração, preparamos arranjos musicais inéditos e uma recepção especial para todos os convidados.
-                </p>
-                <a href="#ingressos" className="btn-primary" style={{ padding: '12px 28px', fontSize: '0.95rem' }}>
-                  <Ticket size={18} /> Participar da Celebração
-                </a>
-              </div>
-
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                <div className="glass-card" style={{ padding: '20px 24px', display: 'flex', alignItems: 'center', gap: '16px' }}>
-                  <div style={{
-                    width: '44px',
-                    height: '44px',
-                    borderRadius: '12px',
-                    background: 'var(--gold-gradient)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: '#000',
-                    flexShrink: 0
-                  }}>
-                    <Music size={22} strokeWidth={2.5} />
-                  </div>
-                  <div>
-                    <h3 style={{ fontSize: '1.1rem', fontWeight: '700' }}>Repertório Especial</h3>
-                    <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>Músicas que marcaram os 15 anos de história.</p>
-                  </div>
-                </div>
-
-                <div className="glass-card" style={{ padding: '20px 24px', display: 'flex', alignItems: 'center', gap: '16px' }}>
-                  <div style={{
-                    width: '44px',
-                    height: '44px',
-                    borderRadius: '12px',
-                    background: 'var(--gold-gradient)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: '#000',
-                    flexShrink: 0
-                  }}>
-                    <Sparkles size={22} strokeWidth={2.5} />
-                  </div>
-                  <div>
-                    <h3 style={{ fontSize: '1.1rem', fontWeight: '700' }}>Brinde Exclusivo</h3>
-                    <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>Lembrança personalizada inclusa em cada ingresso.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FORMULÁRIO DE SELEÇÃO E CHECKOUT DE INGRESSOS */}
+      {/* ÁREA DE SELEÇÃO E AQUISIÇÃO DE INGRESSOS PIX */}
       <TicketSelection />
 
-      {/* FAQ - PERGUNTAS FREQUENTES */}
-      <section style={{ padding: '60px 0 100px', background: 'rgba(0, 0, 0, 0.4)' }}>
-        <div className="container" style={{ maxWidth: '800px' }}>
-          <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-            <div className="gold-badge" style={{ marginBottom: '12px' }}>
+      {/* PERGUNTAS FREQUENTES & ORIENTAÇÕES */}
+      <section style={{ padding: '60px 0 90px', background: 'rgba(4, 8, 20, 0.6)' }}>
+        <div className="container" style={{ maxWidth: '780px' }}>
+          <div style={{ textAlign: 'center', marginBottom: '36px' }}>
+            <div className="badge-beige" style={{ marginBottom: '10px' }}>
               <HelpCircle size={14} /> Dúvidas Frequentes
             </div>
-            <h2 className="font-display" style={{ fontSize: '2rem', fontWeight: '800' }}>
-              Tire suas Dúvidas
+            <h2 className="font-display" style={{ fontSize: '1.9rem', fontWeight: '800', color: '#ffffff' }}>
+              Informações Importantes
             </h2>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
             {faqs.map((faq, idx) => (
-              <div key={idx} className="glass-card" style={{ padding: '24px 28px' }}>
-                <h3 style={{ fontSize: '1.1rem', fontWeight: '700', color: 'var(--gold-light)', marginBottom: '8px' }}>
+              <div key={idx} className="glass-card" style={{ padding: '22px 26px', border: '1px solid var(--border-subtle)' }}>
+                <h3 style={{ fontSize: '1.05rem', fontWeight: '700', color: 'var(--beige-warm)', marginBottom: '8px' }}>
                   {faq.q}
                 </h3>
-                <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', lineHeight: '1.6' }}>
+                <p style={{ color: 'var(--text-secondary)', fontSize: '0.92rem', lineHeight: '1.6' }}>
                   {faq.a}
                 </p>
               </div>

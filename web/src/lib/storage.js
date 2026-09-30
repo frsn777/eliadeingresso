@@ -261,3 +261,40 @@ export async function scanTicket(ticketId, scannedBy = 'Portaria Principal') {
     message: 'Erro ao processar validação.'
   };
 }
+
+/**
+ * Retorna todos os ingressos com dados dos compradores para a lista de presença da portaria
+ */
+export async function getAllTickets() {
+  if (supabaseAdmin) {
+    const { data: tickets, error } = await supabaseAdmin
+      .from('tickets')
+      .select('*, orders(customer_name, customer_email, customer_phone, status)')
+      .order('created_at', { ascending: false });
+
+    if (!error && tickets) {
+      return tickets.map((t) => ({
+        ...t,
+        buyer_name: t.orders?.customer_name || 'Comprador',
+        buyer_email: t.orders?.customer_email || '',
+        buyer_phone: t.orders?.customer_phone || '',
+        order_status: t.orders?.status || 'approved'
+      }));
+    }
+  }
+
+  // Fallback Local
+  const list = [];
+  for (const [, ticket] of globalStore.tickets.entries()) {
+    const order = globalStore.orders.get(ticket.order_id);
+    list.push({
+      ...ticket,
+      buyer_name: order?.customer_name || 'Comprador',
+      buyer_email: order?.customer_email || '',
+      buyer_phone: order?.customer_phone || '',
+      order_status: order?.status || 'approved'
+    });
+  }
+  return list.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+}
+

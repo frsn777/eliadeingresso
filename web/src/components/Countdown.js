@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 
-export default function Countdown({ targetDate = '2026-11-15T19:30:00' }) {
+export default function Countdown({ targetDate = '2026-11-07T18:00:00' }) {
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -38,24 +38,24 @@ export default function Countdown({ targetDate = '2026-11-15T19:30:00' }) {
   return (
     <div style={{
       display: 'inline-flex',
-      gap: '14px',
+      gap: '12px',
       flexWrap: 'wrap',
       justifyContent: 'center',
-      marginTop: '24px'
+      marginTop: '28px'
     }}>
       {units.map((unit, idx) => (
         <div key={idx} style={{
-          background: 'rgba(15, 18, 27, 0.85)',
-          border: '1px solid var(--border-gold)',
+          background: 'rgba(14, 26, 58, 0.85)',
+          border: '1px solid var(--border-beige)',
           borderRadius: 'var(--radius-md)',
           padding: '12px 18px',
           minWidth: '85px',
           textAlign: 'center',
-          backdropFilter: 'blur(10px)',
+          backdropFilter: 'blur(12px)',
           boxShadow: 'var(--shadow-sm)'
         }}>
-          <div className="font-display text-gold-gradient" style={{
-            fontSize: '1.8rem',
+          <div className="font-display text-beige-gradient" style={{
+            fontSize: '1.9rem',
             fontWeight: '800',
             lineHeight: 1
           }}>
@@ -64,8 +64,8 @@ export default function Countdown({ targetDate = '2026-11-15T19:30:00' }) {
           <div style={{
             fontSize: '0.68rem',
             color: 'var(--text-secondary)',
-            fontWeight: '600',
-            letterSpacing: '1px',
+            fontWeight: '700',
+            letterSpacing: '1.5px',
             marginTop: '6px'
           }}>
             {unit.label}

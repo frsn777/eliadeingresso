@@ -1,11 +1,11 @@
 {
-  "name": "Eliade Portaria - Validador de Ingressos",
+  "name": "Portaria - Culto Musical 15 Anos Grupo Eliade",
   "short_name": "Portaria Eliade",
-  "description": "Aplicativo de validação de ingressos e leitura de QR Code para o evento de 15 anos do Grupo Eliade.",
+  "description": "Validador de ingressos com leitor de QR Code para o Culto Musical de 15 Anos do Grupo Eliade.",
   "start_url": "/admin/scanner",
   "display": "standalone",
-  "background_color": "#07080c",
-  "theme_color": "#07080c",
+  "background_color": "#060b1a",
+  "theme_color": "#060b1a",
   "orientation": "portrait",
   "icons": [
     {
