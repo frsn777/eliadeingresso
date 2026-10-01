@@ -230,23 +230,25 @@ export default function CheckoutModal({ data, onClose }) {
                 Aguardando pagamento... (Liberação automática)
               </div>
 
-              {/* Botão de Demonstração / Teste Imediato */}
-              <button
-                onClick={handleSimulatePayment}
-                disabled={isSimulating}
-                style={{
-                  background: 'none',
-                  border: '1px dashed var(--border-beige)',
-                  borderRadius: 'var(--radius-sm)',
-                  padding: '8px 12px',
-                  color: 'var(--beige-warm)',
-                  fontSize: '0.78rem',
-                  cursor: 'pointer',
-                  opacity: 0.85
-                }}
-              >
-                ⚡ {isSimulating ? 'Confirmando...' : 'Testar Demonstração: Simular Confirmação do PIX'}
-              </button>
+              {/* Botão de Demonstração / Teste Imediato (Apenas em ambiente de desenvolvimento) */}
+              {process.env.NODE_ENV !== 'production' && (
+                <button
+                  onClick={handleSimulatePayment}
+                  disabled={isSimulating}
+                  style={{
+                    background: 'none',
+                    border: '1px dashed var(--border-beige)',
+                    borderRadius: 'var(--radius-sm)',
+                    padding: '8px 12px',
+                    color: 'var(--beige-warm)',
+                    fontSize: '0.78rem',
+                    cursor: 'pointer',
+                    opacity: 0.85
+                  }}
+                >
+                  ⚡ {isSimulating ? 'Confirmando...' : 'Testar Demonstração: Simular Confirmação do PIX (Dev)'}
+                </button>
+              )}
             </div>
           </div>
         ) : (

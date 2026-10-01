@@ -119,6 +119,29 @@ export async function getOrderById(orderId) {
 }
 
 /**
+ * Busca pedido pelo ID de transação de pagamento (txid ou ID do Mercado Pago)
+ */
+export async function getOrderByPaymentTxid(paymentTxid) {
+  if (supabaseAdmin) {
+    const { data: order } = await supabaseAdmin
+      .from('orders')
+      .select('*, tickets(*)')
+      .eq('payment_txid', paymentTxid)
+      .single();
+
+    if (order) return order;
+  }
+
+  for (const [, order] of globalStore.orders.entries()) {
+    if (order.payment_txid === paymentTxid) {
+      return order;
+    }
+  }
+
+  return null;
+}
+
+/**
  * Aprova o pedido (chamado após confirmação do PIX)
  */
 export async function approveOrder(orderId) {
