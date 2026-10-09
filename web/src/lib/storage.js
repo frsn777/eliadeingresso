@@ -200,7 +200,7 @@ export async function getTicketById(ticketId) {
 }
 
 /**
- * Valida o ingresso na portaria (Scan de QR Code)
+ * Valida a entrada do participante na lista de presença
  */
 export async function scanTicket(ticketId, scannedBy = 'Portaria Principal') {
   const ticket = await getTicketById(ticketId);
@@ -209,16 +209,16 @@ export async function scanTicket(ticketId, scannedBy = 'Portaria Principal') {
     return {
       success: false,
       reason: 'NOT_FOUND',
-      message: 'Ingresso não encontrado ou inválido.'
+      message: 'Participante não encontrado na lista.'
     };
   }
 
-  // Verifica se o ingresso já foi utilizado
+  // Se já foi utilizado, permite alternar ou avisa
   if (ticket.status === 'used') {
     return {
       success: false,
       reason: 'ALREADY_USED',
-      message: 'Este ingresso já foi utilizado anteriormente!',
+      message: 'Este participante já teve sua entrada liberada!',
       ticket: {
         id: ticket.id,
         attendee_name: ticket.attendee_name,
@@ -233,7 +233,7 @@ export async function scanTicket(ticketId, scannedBy = 'Portaria Principal') {
     return {
       success: false,
       reason: 'CANCELLED',
-      message: 'Este ingresso foi cancelado.'
+      message: 'Este registro foi cancelado.'
     };
   }
 
@@ -286,17 +286,55 @@ export async function scanTicket(ticketId, scannedBy = 'Portaria Principal') {
 }
 
 /**
- * Retorna todos os ingressos com dados dos compradores para a lista de presença da portaria
+ * Desmarca a entrada de um participante (caso tenha sido marcado por engano)
+ */
+export async function undoCheckIn(ticketId) {
+  if (supabaseAdmin) {
+    const { data: updatedTicket, error } = await supabaseAdmin
+      .from('tickets')
+      .update({
+        status: 'valid',
+        used_at: null,
+        scanned_by: null
+      })
+      .eq('id', ticketId)
+      .select()
+      .single();
+
+    if (!error && updatedTicket) {
+      return { success: true, ticket: updatedTicket };
+    }
+  }
+
+  const localTicket = globalStore.tickets.get(ticketId);
+  if (localTicket) {
+    localTicket.status = 'valid';
+    localTicket.used_at = null;
+    localTicket.scanned_by = null;
+    globalStore.tickets.set(ticketId, localTicket);
+    return { success: true, ticket: localTicket };
+  }
+
+  return { success: false, message: 'Participante não encontrado.' };
+}
+
+/**
+ * Retorna todos os participantes confirmados com pagamento aprovado para a lista da portaria
  */
 export async function getAllTickets() {
   if (supabaseAdmin) {
     const { data: tickets, error } = await supabaseAdmin
       .from('tickets')
-      .select('*, orders(customer_name, customer_email, customer_phone, status)')
-      .order('created_at', { ascending: false });
+      .select('*, orders(customer_name, customer_email, customer_phone, status, payment_method, total_amount)')
+      .order('attendee_name', { ascending: true });
 
     if (!error && tickets) {
-      return tickets.map((t) => ({
+      // Lista apenas participantes cujos pedidos foram devidamente pagos/aprovados
+      const approvedTickets = tickets.filter(
+        (t) => !t.orders || t.orders.status === 'approved'
+      );
+
+      return approvedTickets.map((t) => ({
         ...t,
         buyer_name: t.orders?.customer_name || 'Comprador',
         buyer_email: t.orders?.customer_email || '',
@@ -310,14 +348,16 @@ export async function getAllTickets() {
   const list = [];
   for (const [, ticket] of globalStore.tickets.entries()) {
     const order = globalStore.orders.get(ticket.order_id);
-    list.push({
-      ...ticket,
-      buyer_name: order?.customer_name || 'Comprador',
-      buyer_email: order?.customer_email || '',
-      buyer_phone: order?.customer_phone || '',
-      order_status: order?.status || 'approved'
-    });
+    if (!order || order.status === 'approved') {
+      list.push({
+        ...ticket,
+        buyer_name: order?.customer_name || 'Comprador',
+        buyer_email: order?.customer_email || '',
+        buyer_phone: order?.customer_phone || '',
+        order_status: order?.status || 'approved'
+      });
+    }
   }
-  return list.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+  return list.sort((a, b) => a.attendee_name.localeCompare(b.attendee_name));
 }
 

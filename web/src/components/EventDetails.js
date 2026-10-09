@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Calendar, Clock, MapPin, Music2, HeartHandshake, QrCode } from 'lucide-react';
+import { Calendar, Clock, MapPin, Music2, HeartHandshake, Users } from 'lucide-react';
 
 export default function EventDetails() {
   const highlights = [
@@ -30,10 +30,10 @@ export default function EventDetails() {
       desc: "Uma seleção com arranjos musicais emocionantes que marcaram nossa caminhada."
     },
     {
-      icon: <QrCode size={26} color="var(--beige-light)" />,
-      title: "Ingresso Digital",
-      subtitle: "QR Code Individual",
-      desc: "Emissão instantânea na tela após o PIX, com nome de cada convidado."
+      icon: <Users size={26} color="var(--beige-light)" />,
+      title: "Entrada Descomplicada",
+      subtitle: "Lista Oficial na Portaria",
+      desc: "Sem necessidade de QR Code ou papel. Entrada liberada diretamente pelo nome e documento."
     },
     {
       icon: <HeartHandshake size={26} color="var(--beige-light)" />,

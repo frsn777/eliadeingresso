@@ -252,11 +252,11 @@ export default function CheckoutModal({ data, onClose }) {
             </div>
           </div>
         ) : (
-          /* TELA DE SUCESSO / INGRESSOS LIBERADOS */
+          /* TELA DE SUCESSO / NOMES CONFIRMADOS NA LISTA */
           <div style={{ textAlign: 'center' }}>
             <div style={{
-              width: '64px',
-              height: '64px',
+              width: '68px',
+              height: '68px',
               borderRadius: '50%',
               background: 'rgba(16, 185, 129, 0.15)',
               border: '2px solid var(--status-success)',
@@ -264,39 +264,45 @@ export default function CheckoutModal({ data, onClose }) {
               alignItems: 'center',
               justifyContent: 'center',
               margin: '0 auto 16px',
-              color: 'var(--status-success)'
+              color: 'var(--status-success)',
+              boxShadow: '0 0 30px rgba(16, 185, 129, 0.25)'
             }}>
-              <CheckCircle size={36} />
+              <CheckCircle size={40} />
             </div>
 
             <div className="badge-beige" style={{ marginBottom: '10px' }}>
-              <Sparkles size={14} /> Pagamento Confirmado
+              <Sparkles size={14} /> Pagamento Confirmado com Sucesso
             </div>
 
-            <h3 className="font-display" style={{ fontSize: '1.6rem', fontWeight: '800', marginBottom: '8px', color: '#ffffff' }}>
-              Ingressos Garantidos!
+            <h3 className="font-display" style={{ fontSize: '1.65rem', fontWeight: '800', marginBottom: '8px', color: '#ffffff' }}>
+              Presença Confirmada!
             </h3>
 
-            {/* AVISO DE DESTAQUE: BAIXAR AGORA */}
+            {/* AVISO EXPLICATIVO DA PORTARIA */}
             <div style={{
-              background: 'rgba(245, 158, 11, 0.12)',
-              border: '1px solid rgba(245, 158, 11, 0.4)',
+              background: 'rgba(16, 185, 129, 0.1)',
+              border: '1px solid rgba(16, 185, 129, 0.35)',
               borderRadius: 'var(--radius-md)',
-              padding: '14px 16px',
+              padding: '16px 18px',
               marginBottom: '20px',
               textAlign: 'left',
               display: 'flex',
               gap: '12px',
               alignItems: 'flex-start'
             }}>
-              <AlertTriangle size={22} color="#fbbf24" style={{ flexShrink: 0, marginTop: '2px' }} />
-              <div style={{ fontSize: '0.86rem', color: '#fef3c7', lineHeight: '1.5' }}>
-                <strong>⚠️ ATENÇÃO:</strong> Os ingressos <strong>NÃO são enviados por e-mail</strong>. Abra e salve cada ingresso abaixo (em PDF ou imagem) no seu celular para apresentar na portaria no dia 07 de Novembro.
+              <Sparkles size={22} color="#86efac" style={{ flexShrink: 0, marginTop: '2px' }} />
+              <div style={{ fontSize: '0.88rem', color: '#f0fdf4', lineHeight: '1.55' }}>
+                <strong>🎉 Seus nomes já constam na Lista Oficial da Portaria!</strong> <br />
+                No dia <strong>07 de Novembro</strong>, no Auditório Walkíria Lima, basta que cada participante chegue à portaria e <strong>apresente um documento de identificação com foto</strong> para ter sua entrada liberada.
               </div>
             </div>
 
-            {/* Lista de Ingressos Gerados com Botões de Download */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '24px' }}>
+            {/* Lista de Nomes Confirmados */}
+            <div style={{ textAlign: 'left', marginBottom: '10px', fontSize: '0.84rem', fontWeight: '700', color: 'var(--beige-warm)' }}>
+              Participantes Cadastrados na Lista ({tickets?.length || 1}):
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '22px' }}>
               {tickets?.map((t, idx) => (
                 <div key={t.id || idx} style={{
                   display: 'flex',
@@ -306,37 +312,104 @@ export default function CheckoutModal({ data, onClose }) {
                   background: 'rgba(255, 255, 255, 0.05)',
                   borderRadius: 'var(--radius-md)',
                   border: '1px solid var(--border-beige)',
-                  flexWrap: 'wrap',
                   gap: '10px'
                 }}>
                   <div style={{ textAlign: 'left' }}>
-                    <div style={{ fontWeight: '700', color: 'var(--text-primary)', fontSize: '0.95rem' }}>
+                    <div style={{ fontWeight: '800', color: '#ffffff', fontSize: '0.98rem' }}>
                       {t.attendee_name}
                     </div>
-                    <div style={{ fontSize: '0.75rem', color: 'var(--beige-primary)' }}>
-                      Código: {t.ticket_code}
+                    <div style={{ fontSize: '0.74rem', color: 'var(--text-secondary)' }}>
+                      Comprador: {order?.customer_name || 'Titular'} &bull; Pedido #{order?.id?.substring(0, 8) || 'ELI'}
                     </div>
                   </div>
 
-                  <Link
-                    href={`/ingresso/${t.id}`}
-                    target="_blank"
-                    className="btn-primary"
-                    style={{
-                      padding: '8px 16px',
-                      fontSize: '0.84rem'
-                    }}
-                  >
-                    <Download size={15} />
-                    <span>Baixar / Ver Ingresso</span>
-                  </Link>
+                  <div style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '4px',
+                    padding: '4px 10px',
+                    borderRadius: 'var(--radius-full)',
+                    background: 'rgba(16, 185, 129, 0.15)',
+                    border: '1px solid rgba(16, 185, 129, 0.3)',
+                    color: '#86efac',
+                    fontSize: '0.78rem',
+                    fontWeight: '700',
+                    whiteSpace: 'nowrap'
+                  }}>
+                    <Check size={14} /> Na Lista
+                  </div>
                 </div>
               ))}
             </div>
 
-            <button onClick={onClose} className="btn-secondary" style={{ width: '100%', justifyContent: 'center' }}>
-              Concluir e Fechar
-            </button>
+            {/* Resumo do Pedido / Comprovante */}
+            <div style={{
+              background: 'rgba(255, 255, 255, 0.04)',
+              border: '1px solid var(--border-subtle)',
+              borderRadius: 'var(--radius-md)',
+              padding: '14px 18px',
+              marginBottom: '18px',
+              textAlign: 'left',
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))',
+              gap: '10px',
+              fontSize: '0.82rem'
+            }}>
+              <div>
+                <span style={{ color: 'var(--text-secondary)' }}>Responsável:</span>
+                <div style={{ fontWeight: '700', color: '#ffffff' }}>{order?.customer_name}</div>
+              </div>
+              {order?.customer_phone && (
+                <div>
+                  <span style={{ color: 'var(--text-secondary)' }}>WhatsApp:</span>
+                  <div style={{ fontWeight: '700', color: '#ffffff' }}>{order?.customer_phone}</div>
+                </div>
+              )}
+              <div>
+                <span style={{ color: 'var(--text-secondary)' }}>Valor Total:</span>
+                <div style={{ fontWeight: '800', color: 'var(--beige-warm)' }}>
+                  R$ {Number(order?.total_amount || 10).toFixed(2).replace('.', ',')}
+                </div>
+              </div>
+              <div>
+                <span style={{ color: 'var(--text-secondary)' }}>Data da Compra:</span>
+                <div style={{ fontWeight: '600', color: '#ffffff' }}>
+                  {new Date().toLocaleDateString('pt-BR')}
+                </div>
+              </div>
+            </div>
+
+            {/* Detalhes do Evento para Lembrete */}
+            <div style={{
+              background: 'rgba(0, 0, 0, 0.3)',
+              borderRadius: 'var(--radius-md)',
+              padding: '12px 16px',
+              fontSize: '0.82rem',
+              color: 'var(--text-secondary)',
+              marginBottom: '20px',
+              textAlign: 'center'
+            }}>
+              📅 <strong>07/11/2026 às 18:00h</strong> &bull; Auditório Walkíria Lima &bull; Culto 15 Anos Eliade
+            </div>
+
+            <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+              <button
+                onClick={() => window.print()}
+                className="btn-secondary"
+                style={{ flex: 1, minWidth: '160px', justifyContent: 'center', padding: '12px' }}
+              >
+                <Printer size={16} />
+                <span>Salvar / Imprimir Comprovante</span>
+              </button>
+
+              <button
+                onClick={onClose}
+                className="btn-primary"
+                style={{ flex: 1, minWidth: '140px', justifyContent: 'center', padding: '12px' }}
+              >
+                Concluir
+              </button>
+            </div>
           </div>
         )}
       </div>

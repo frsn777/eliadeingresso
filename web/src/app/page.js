@@ -9,20 +9,20 @@ import { Sparkles, Ticket, Calendar, Clock, MapPin, HelpCircle, ShieldCheck, Mus
 export default function HomePage() {
   const faqs = [
     {
-      q: 'Como vou receber o meu ingresso após o pagamento via PIX?',
-      a: 'Assim que o PIX é confirmado, o site exibe os ingressos imediatamente na sua tela com opção de baixar o arquivo PDF ou salvar a imagem com o QR Code. Atenção: os ingressos não são enviados por e-mail, portanto salve o arquivo no seu celular ao finalizar a compra.'
+      q: 'Como funciona a entrada no evento após o pagamento via PIX?',
+      a: 'Assim que o pagamento do PIX for confirmado, todos os nomes preenchidos são incluídos automaticamente na Lista Oficial de Entrada da Portaria. No dia 07 de Novembro, basta que cada participante chegue ao Auditório Walkíria Lima e apresente um documento com foto.'
     },
     {
-      q: 'Posso comprar múltiplos ingressos de uma só vez?',
-      a: 'Sim! Você pode selecionar a quantidade desejada e digitar o nome de cada pessoa. O sistema gera um QR Code exclusivo com o nome de cada participante.'
+      q: 'Posso comprar múltiplos ingressos para amigos ou familiares?',
+      a: 'Sim! Você pode selecionar a quantidade desejada de pessoas e digitar o nome completo de cada participante. Todos os nomes constarão individualmente na lista da portaria.'
     },
     {
-      q: 'E se eu esquecer ou perder o arquivo do ingresso no dia do evento?',
-      a: 'Fique tranquilo! A nossa equipe de portaria terá acesso à Lista Oficial de Presença no sistema e poderá consultar o seu nome ou do comprador para liberar a sua entrada normalmente.'
+      q: 'Preciso imprimir algum papel ou apresentar QR Code no dia?',
+      a: 'Não precisa! A portaria fará o controle e liberação diretamente pela conferência dos nomes cadastrados na Lista Oficial de Presença no sistema.'
     },
     {
-      q: 'Para onde é destinado o valor do ingresso de R$ 10,00?',
-      a: 'O valor simbólico de R$ 10,00 por ingresso é 100% destinado para a confraternização e comemoração de aniversário de 15 anos dos membros do Grupo Eliade.'
+      q: 'Para onde é destinado o valor de R$ 10,00?',
+      a: 'O valor simbólico de R$ 10,00 por pessoa é 100% destinado para a confraternização e celebração de aniversário de 15 anos do Grupo Eliade.'
     }
   ];
 

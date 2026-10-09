@@ -17,14 +17,7 @@ export async function POST(request) {
     // 1. Validação de presença e tipos
     if (!customerName || typeof customerName !== 'string' || customerName.trim().length < 2) {
       return NextResponse.json(
-        { error: 'Nome do comprador é obrigatório e deve ter pelo menos 2 caracteres.' },
-        { status: 400 }
-      );
-    }
-
-    if (!customerEmail || !isValidEmail(customerEmail)) {
-      return NextResponse.json(
-        { error: 'Um e-mail válido é obrigatório.' },
+        { error: 'Nome do responsável é obrigatório e deve ter pelo menos 2 caracteres.' },
         { status: 400 }
       );
     }
@@ -45,10 +38,14 @@ export async function POST(request) {
       );
     }
 
-    // Sanitização dos dados
+    // Sanitização dos dados e geração de e-mail de fallback para o Mercado Pago
     const sanitizedName = customerName.trim().substring(0, 100);
-    const sanitizedEmail = customerEmail.trim().toLowerCase().substring(0, 120);
     const sanitizedPhone = typeof customerPhone === 'string' ? customerPhone.trim().substring(0, 30) : '';
+    const cleanPhoneDigits = sanitizedPhone.replace(/\D/g, '') || Date.now().toString();
+    const sanitizedEmail = (customerEmail && isValidEmail(customerEmail))
+      ? customerEmail.trim().toLowerCase().substring(0, 120)
+      : `contato_${cleanPhoneDigits}@eliade15anos.com.br`;
+    
     const sanitizedAttendees = attendees.map((att) =>
       typeof att === 'string' && att.trim() ? att.trim().substring(0, 100) : sanitizedName
     );

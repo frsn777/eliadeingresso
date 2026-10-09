@@ -219,20 +219,20 @@ export default function TicketPage() {
         
         {/* Aviso de Orientação no topo */}
         <div className="no-print" style={{
-          background: 'rgba(245, 158, 11, 0.12)',
-          border: '1px solid rgba(245, 158, 11, 0.35)',
+          background: 'rgba(16, 185, 129, 0.12)',
+          border: '1px solid rgba(16, 185, 129, 0.35)',
           borderRadius: 'var(--radius-md)',
-          padding: '12px 16px',
+          padding: '14px 18px',
           marginBottom: '20px',
           display: 'flex',
           alignItems: 'center',
-          gap: '10px',
-          color: '#fef3c7',
-          fontSize: '0.86rem'
+          gap: '12px',
+          color: '#dcfce7',
+          fontSize: '0.88rem'
         }}>
-          <AlertCircle size={20} color="#fbbf24" style={{ flexShrink: 0 }} />
+          <CheckCircle size={22} color="#86efac" style={{ flexShrink: 0 }} />
           <div>
-            <strong>Salve seu ingresso:</strong> Baixe a imagem do ingresso completo na sua galeria ou salve o PDF para apresentar no dia 07/Nov.
+            <strong>Nome Confirmado na Lista:</strong> No dia 07/Nov, basta apresentar um documento com foto na portaria do Auditório Walkíria Lima.
           </div>
         </div>
 
@@ -251,26 +251,16 @@ export default function TicketPage() {
 
           <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
             <button
-              onClick={handleDownloadCardImage}
-              disabled={isGeneratingImage}
-              className="btn-secondary"
-              style={{ padding: '8px 16px', fontSize: '0.84rem' }}
-            >
-              <ImageIcon size={15} />
-              <span>{isGeneratingImage ? 'Gerando Imagem...' : 'Salvar Imagem do Ingresso'}</span>
-            </button>
-
-            <button
               onClick={handlePrint}
               className="btn-primary"
               style={{ padding: '8px 18px', fontSize: '0.84rem' }}
             >
-              <Printer size={15} /> Baixar / Imprimir PDF
+              <Printer size={15} /> Imprimir Comprovante
             </button>
           </div>
         </div>
 
-        {/* CARTÃO DO INGRESSO OFICIAL */}
+        {/* CARTÃO DO COMPROVANTE OFICIAL */}
         <div className="ticket-stub print-ticket" style={{
           boxShadow: '0 20px 50px rgba(0,0,0,0.8), 0 0 30px rgba(244, 237, 228, 0.15)'
         }}>
@@ -311,9 +301,9 @@ export default function TicketPage() {
             <div style={{
               padding: '6px 14px',
               borderRadius: 'var(--radius-full)',
-              background: isUsed ? 'rgba(239, 68, 68, 0.2)' : 'rgba(16, 185, 129, 0.2)',
-              border: `1px solid ${isUsed ? 'var(--status-error)' : 'var(--status-success)'}`,
-              color: isUsed ? '#fca5a5' : '#86efac',
+              background: isUsed ? 'rgba(16, 185, 129, 0.25)' : 'rgba(244, 237, 228, 0.15)',
+              border: `1px solid ${isUsed ? 'var(--status-success)' : 'var(--border-beige)'}`,
+              color: isUsed ? '#86efac' : 'var(--beige-light)',
               fontSize: '0.78rem',
               fontWeight: '700',
               display: 'flex',
@@ -322,11 +312,11 @@ export default function TicketPage() {
             }}>
               {isUsed ? (
                 <>
-                  <AlertTriangle size={14} /> ENTRADA UTILIZADA
+                  <CheckCircle size={14} /> ENTRADA REALIZADA
                 </>
               ) : (
                 <>
-                  <CheckCircle size={14} /> INGRESSO VÁLIDO
+                  <CheckCircle size={14} /> CONFIRMADO NA LISTA
                 </>
               )}
             </div>
@@ -336,13 +326,13 @@ export default function TicketPage() {
           <div style={{ padding: '28px 30px' }}>
             <div style={{ marginBottom: '22px' }}>
               <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '1px' }}>
-                Participante / Portador
+                Participante Confirmado
               </span>
-              <div className="font-display" style={{ fontSize: '1.55rem', fontWeight: '800', color: 'var(--beige-warm)', marginTop: '2px' }}>
+              <div className="font-display" style={{ fontSize: '1.65rem', fontWeight: '800', color: 'var(--beige-warm)', marginTop: '2px' }}>
                 {ticket.attendee_name}
               </div>
               <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: '4px' }}>
-                Código do Ingresso: <strong style={{ color: '#ffffff' }}>{ticket.ticket_code}</strong>
+                Comprador: <strong style={{ color: '#ffffff' }}>{ticket.orders?.customer_name || 'Titular'}</strong> &bull; Código: {ticket.ticket_code}
               </div>
             </div>
 
@@ -355,7 +345,7 @@ export default function TicketPage() {
               background: 'rgba(6, 11, 26, 0.65)',
               borderRadius: 'var(--radius-md)',
               border: '1px solid var(--border-subtle)',
-              marginBottom: '24px'
+              marginBottom: '20px'
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                 <Calendar size={18} color="var(--beige-primary)" />
@@ -382,28 +372,20 @@ export default function TicketPage() {
               </div>
             </div>
 
-            {/* QR CODE PARA APRESENTAR NA ENTRADA */}
             <div style={{
-              textAlign: 'center',
-              padding: '20px',
-              background: '#ffffff',
+              background: 'rgba(244, 237, 228, 0.05)',
+              border: '1px solid var(--border-beige)',
               borderRadius: 'var(--radius-md)',
-              width: '230px',
-              margin: '0 auto 16px',
-              boxShadow: '0 8px 24px rgba(0,0,0,0.5)'
+              padding: '16px',
+              textAlign: 'center'
             }}>
-              {ticket.qrCodeImage && (
-                <img
-                  src={ticket.qrCodeImage}
-                  alt="QR Code de Validação"
-                  style={{ width: '100%', height: 'auto', display: 'block' }}
-                />
-              )}
+              <div style={{ fontSize: '0.92rem', fontWeight: '700', color: '#ffffff', marginBottom: '4px' }}>
+                Entrada por Nome na Portaria
+              </div>
+              <p style={{ color: 'var(--text-secondary)', fontSize: '0.82rem', margin: 0 }}>
+                Não é necessário imprimir este documento. O nome do participante já consta na Lista Oficial da Portaria para o dia do evento.
+              </p>
             </div>
-
-            <p style={{ textAlign: 'center', color: 'var(--text-secondary)', fontSize: '0.82rem' }}>
-              Apresente este QR Code na portaria do Auditório Walkíria Lima (pelo celular ou impresso).
-            </p>
           </div>
 
           {/* Rodapé do Ingresso */}

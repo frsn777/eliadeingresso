@@ -29,7 +29,7 @@ export async function GET(request) {
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { ticketId, password, scannedBy = 'Portaria Manual' } = body;
+    const { ticketId, password, action = 'checkin', scannedBy = 'Portaria Manual' } = body;
     const expectedPassword = process.env.ADMIN_SCANNER_PASSWORD || 'eliade15anos';
 
     if (password !== expectedPassword) {
@@ -37,13 +37,19 @@ export async function POST(request) {
     }
 
     if (!ticketId) {
-      return NextResponse.json({ error: 'ID do ingresso obrigatório.' }, { status: 400 });
+      return NextResponse.json({ error: 'ID do participante obrigatório.' }, { status: 400 });
+    }
+
+    if (action === 'undo') {
+      const { undoCheckIn } = await import('@/lib/storage');
+      const result = await undoCheckIn(ticketId);
+      return NextResponse.json(result);
     }
 
     const result = await scanTicket(ticketId, scannedBy);
     return NextResponse.json(result);
   } catch (error) {
-    console.error('Erro ao dar entrada manual:', error);
-    return NextResponse.json({ error: 'Erro ao dar entrada manual.' }, { status: 500 });
+    console.error('Erro ao registrar entrada:', error);
+    return NextResponse.json({ error: 'Erro ao registrar entrada.' }, { status: 500 });
   }
 }
